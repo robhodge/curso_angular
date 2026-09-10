@@ -8,6 +8,7 @@ export interface Actividad {
     titulo: string;
     estado: EstadoActividad;
     prioridad: Prioridad;
+    creadaEn: string; // Fecha en formato ISO (YYYY-MM-DD)
 }
 
 export interface ResumenActividades {
