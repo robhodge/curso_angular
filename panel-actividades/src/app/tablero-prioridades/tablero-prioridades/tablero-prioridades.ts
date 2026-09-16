@@ -1,5 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
 import { Actividad, EstadoActividad, FiltroEstado, FiltroPrioridad, Prioridad } from '../../modelos/actividad';
+import { Component, computed, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'app-tablero-prioridades',
@@ -7,6 +7,20 @@ import { Actividad, EstadoActividad, FiltroEstado, FiltroPrioridad, Prioridad } 
   styleUrl: './tablero-prioridades.css',
 })
 export class TableroPrioridades {
+
+  constructor() {
+    effect(() => {
+      console.info(`[Tablero] ${this.mostradas()} de ${this.total()} visibles`);
+    });
+  }
+
+  protected restablecer(): void {
+    this.actividades.set([]);
+    this.limpiarFiltros();
+    this.seleccionadaId.set(null);
+  }
+
+
   protected readonly actividades = signal<Actividad[]>([
     { id: 1, titulo: 'Preparar estructura HTML', estado: 'completada', prioridad: 'alta', creadaEn: '2026-08-10', destacada: false },
     { id: 2, titulo: 'Revisar contraste', estado: 'en_progreso', prioridad: 'media', creadaEn: '2026-08-12', destacada: true },

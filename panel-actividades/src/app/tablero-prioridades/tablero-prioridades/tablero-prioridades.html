@@ -1,6 +1,8 @@
 <section class="tablero" aria-labelledby="titulo-tablero">
     <h2 id="titulo-tablero">Tablero de prioridades</h2>
 
+    <button type="button" (click)="restablecer()">Vaciar el tablero</button>
+
     @if (seleccionada(); as elegida) {
     <p class="seleccion">
         Seleccionada: <strong>{{ elegida.titulo }}</strong> · creada el {{ elegida.creadaEn }}
