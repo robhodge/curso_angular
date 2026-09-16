@@ -1,4 +1,3 @@
-
 export type EstadoActividad = 'pendiente' | 'en_progreso' | 'completada';
 
 export type Prioridad = 'baja' | 'media' | 'alta';
@@ -8,13 +7,9 @@ export interface Actividad {
     titulo: string;
     estado: EstadoActividad;
     prioridad: Prioridad;
-    creadaEn: string; // Fecha en formato ISO (YYYY-MM-DD)
+    creadaEn: string;
+    destacada: boolean;
 }
 
-export interface ResumenActividades {
-    total: number;
-    pendientes: number;
-    enProgreso: number;
-    completadas: number;
-    titulosPrioridadAlta: string[];
-}
+export type FiltroEstado = EstadoActividad | 'todas';
+export type FiltroPrioridad = Prioridad | 'todas';
