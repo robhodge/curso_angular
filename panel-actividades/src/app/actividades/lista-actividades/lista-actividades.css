@@ -81,3 +81,9 @@
   padding: 1.5rem;
   text-align: center;
 }
+
+.enlace-detalle {
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-top: 0.25rem;
+}

@@ -1,10 +1,11 @@
 import { Component, input, output } from '@angular/core';
 import { Actividad } from '../../modelos/actividad';
 import { TarjetaActividad } from '../tarjeta-actividad/tarjeta-actividad';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-lista-actividades',
-  imports: [TarjetaActividad],
+  imports: [TarjetaActividad, RouterLink],
   templateUrl: './lista-actividades.html',
   styleUrl: './lista-actividades.css',
 })

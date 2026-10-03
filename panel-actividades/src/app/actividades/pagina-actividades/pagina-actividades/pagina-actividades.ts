@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { ResumenActividades } from '../../resumen-actividades/resumen-actividades';
 import { Actividad, EstadoActividad, FiltroEstado, FiltroPrioridad, Prioridad } from '../../../modelos/actividad';
 import { TarjetaActividad } from '../../tarjeta-actividad/tarjeta-actividad';
@@ -6,6 +6,7 @@ import { ListaActividades } from '../../lista-actividades/lista-actividades';
 import { FiltrosActividades } from '../../filtros-actividades/filtros-actividades';
 import { PanelSeccion } from '../../../compartido/panel-seccion/panel-seccion';
 import { ActividadesService } from '../../actividades';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-actividades',
@@ -36,9 +37,24 @@ export class PaginaActividades {
 
   private readonly orden: Record<Prioridad, number> = { alta: 0, media: 1, baja: 2 };
 
-  protected readonly termino = signal('');
-  protected readonly filtroEstado = signal<FiltroEstado>('todas');
-  protected readonly filtroPrioridad = signal<FiltroPrioridad>('todas');
+  private readonly router = inject(Router);
+  private readonly ruta = inject(ActivatedRoute);
+
+  readonly buscar = input<string | undefined>('');
+  readonly estado = input<FiltroEstado | undefined>('todas');
+  readonly prioridad = input<FiltroPrioridad | undefined>('todas');
+
+  protected readonly termino = computed(() => this.buscar() ?? '');
+  protected readonly filtroEstado = computed(() => this.estado() ?? 'todas');
+  protected readonly filtroPrioridad = computed(() => this.prioridad() ?? 'todas');
+
+
+
+
+
+  /*   protected readonly termino = signal('');
+    protected readonly filtroEstado = signal<FiltroEstado>('todas');
+    protected readonly filtroPrioridad = signal<FiltroPrioridad>('todas'); */
   protected readonly seleccionadaId = signal<number | null>(null);
 
   protected readonly total = this.servicio.total;
@@ -98,6 +114,31 @@ export class PaginaActividades {
     this.seleccionadaId.update((actual) => (actual === id ? null : actual));
   }
 
+  protected cambiarBuscar(valor: string): void {
+    this.actualizar({ buscar: valor.trim() === '' ? null : valor });
+  }
+
+  protected cambiarEstado(valor: FiltroEstado): void {
+    this.actualizar({ estado: valor === 'todas' ? null : valor });
+  }
+
+  protected cambiarPrioridad(valor: FiltroPrioridad): void {
+    this.actualizar({ prioridad: valor === 'todas' ? null : valor });
+  }
+
+  protected limpiarFiltros(): void {
+    this.actualizar({ buscar: null, estado: null, prioridad: null });
+  }
+
+  private actualizar(cambios: Record<string, string | null>): void {
+    this.router.navigate([], {
+      relativeTo: this.ruta,
+      queryParams: cambios,
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
+  }
+
   protected restablecer(): void {
     this.servicio.vaciar();
     this.limpiarFiltros();
@@ -134,21 +175,21 @@ export class PaginaActividades {
     return 'completada';
   }
 
-  protected buscar(evento: Event): void {
-    this.termino.set((evento.target as HTMLInputElement).value);
-  }
-
-  protected cambiarFiltroEstado(evento: Event): void {
-    this.filtroEstado.set((evento.target as HTMLSelectElement).value as FiltroEstado);
-  }
-
-  protected cambiarFiltroPrioridad(evento: Event): void {
-    this.filtroPrioridad.set((evento.target as HTMLSelectElement).value as FiltroPrioridad);
-  }
-
-  protected limpiarFiltros(): void {
-    this.termino.set('');
-    this.filtroEstado.set('todas');
-    this.filtroPrioridad.set('todas');
-  }
+  /*  protected buscar(evento: Event): void {
+     this.termino.set((evento.target as HTMLInputElement).value);
+   } */
+  /* 
+    protected cambiarFiltroEstado(evento: Event): void {
+      this.filtroEstado.set((evento.target as HTMLSelectElement).value as FiltroEstado);
+    }
+   */
+  /*   protected cambiarFiltroPrioridad(evento: Event): void {
+      this.filtroPrioridad.set((evento.target as HTMLSelectElement).value as FiltroPrioridad);
+    }
+  
+    protected limpiarFiltros(): void {
+      this.termino.set('');
+      this.filtroEstado.set('todas');
+      this.filtroPrioridad.set('todas');
+    } */
 }

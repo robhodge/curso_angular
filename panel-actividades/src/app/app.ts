@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ResumenActividades } from './actividades/resumen-actividades/resumen-actividades';
-import { TarjetaActividad } from './actividades/tarjeta-actividad/tarjeta-actividad';
-import { ListaActividades } from "./actividades/lista-actividades/lista-actividades";
-import { TableroPrioridades } from "./tablero-prioridades/tablero-prioridades/tablero-prioridades";
-import { PaginaActividades } from './actividades/pagina-actividades/pagina-actividades/pagina-actividades';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ResumenActividades, TarjetaActividad, ListaActividades, TableroPrioridades, PaginaActividades],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {}
+export class App { }
