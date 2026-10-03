@@ -13,3 +13,14 @@
 .detalle p {
     margin: 0;
 }
+
+.descripcion {
+    overflow-wrap: anywhere;
+}
+
+.acciones {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}

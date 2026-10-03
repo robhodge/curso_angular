@@ -6,11 +6,11 @@ import { ListaActividades } from '../../lista-actividades/lista-actividades';
 import { FiltrosActividades } from '../../filtros-actividades/filtros-actividades';
 import { PanelSeccion } from '../../../compartido/panel-seccion/panel-seccion';
 import { ActividadesService } from '../../actividades';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-actividades',
-  imports: [ResumenActividades, ListaActividades, FiltrosActividades, PanelSeccion],
+  imports: [ResumenActividades, ListaActividades, FiltrosActividades, PanelSeccion, RouterLink],
   templateUrl: './pagina-actividades.html',
   styleUrl: './pagina-actividades.css',
 })
@@ -25,7 +25,6 @@ export class PaginaActividades {
       console.info(`[Tablero] ${this.mostradas()} de ${this.total()} visibles`);
     });
   }
-
 
   /*   protected readonly actividades = signal<Actividad[]>([
       { id: 1, titulo: 'Preparar estructura HTML', estado: 'completada', prioridad: 'alta', creadaEn: '2026-08-10', destacada: false },

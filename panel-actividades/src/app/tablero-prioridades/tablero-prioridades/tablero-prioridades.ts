@@ -7,7 +7,7 @@ import { Component, computed, effect, signal } from '@angular/core';
   styleUrl: './tablero-prioridades.css',
 })
 export class TableroPrioridades {
-
+/* 
   constructor() {
     effect(() => {
       console.info(`[Tablero] ${this.mostradas()} de ${this.total()} visibles`);
@@ -128,5 +128,5 @@ export class TableroPrioridades {
     this.termino.set('');
     this.filtroEstado.set('todas');
     this.filtroPrioridad.set('todas');
-  }
+  } */
 }

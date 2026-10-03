@@ -9,7 +9,14 @@ export interface Actividad {
     prioridad: Prioridad;
     creadaEn: string;
     destacada: boolean;
+    descripcion: string;
 }
+
+export const LIMITES = {
+    tituloMin: 3,
+    tituloMax: 80,
+    descripcionMax: 300,
+} as const;
 
 export type FiltroEstado = EstadoActividad | 'todas';
 export type FiltroPrioridad = Prioridad | 'todas';
